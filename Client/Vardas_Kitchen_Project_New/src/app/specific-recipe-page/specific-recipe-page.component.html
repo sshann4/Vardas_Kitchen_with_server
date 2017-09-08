@@ -1,0 +1,58 @@
+<div class="general-wraper">
+    <!--- side bar --->
+    <aside class="wrapper">
+        <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#"></a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main dir="rtl">
+        <div class="recepie-container">
+          <div class="rel-container">
+            <div class="img-cont">
+                <img src="../../assets/ptitim.jpg" class="pic"/>
+            </div>
+            <div class="header-cont">
+                <h2 class="rec-name">{{this.recipe[0].recipe_name}}</h2>
+            </div>
+            <h4> חומרים</h4>
+            <div class="ingredients-description">
+              <ul>
+                <div class="col" *ngFor="let ingredient of recipe_ingredients">
+                  <input type="checkbox" name="vehicle" value="Bike">
+                  <li>{{ingredient.amount+" "+ingredient.ingredient_name}} </li>
+                </div>
+              </ul>
+            </div>
+            <div class="steps">
+                <h4>אופן ההכנה</h4>
+                <span>
+                    <ol>
+                      <li *ngFor="let step of recipeSteps">{{step}}</li>
+                    </ol>
+                </span>
+            </div>
+            <span class="properties"></span>
+            <div class="caption">
+                  <span class="level" dir="rtl">{{this.recipe[0].difficulty}}</span>
+                  <span class="duration" dir="rtl">{{this.recipe[0].ready_in.hours + 'שעות'}} {{this.recipe[0].ready_in.minutes + 'דקות'}}</span>
+                  <span class="type" dir="rtl">{{this.recipe[0].which_meal}}</span>
+            </div>
+          </div>
+        </div>
+
+    </main>
+</div>

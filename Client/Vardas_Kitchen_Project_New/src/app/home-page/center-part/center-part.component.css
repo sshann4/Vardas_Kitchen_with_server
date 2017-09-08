@@ -1,0 +1,40 @@
+.mainCont{
+  background-color: #f1f1f1;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.switching-rec{
+  display: block;
+  position: static;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.most-recommended{
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  width: 60%;
+  height: auto;
+  margin: 1% 1% 1% 1%;
+  /*border: 1px solid;
+  border-radius: 5px;*/
+}
+
+.side-part{
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  width: 36%;
+  height: auto;
+  margin: 1% 1% 1% 1%;
+  /*background-color: #F58B4C;*/
+  background-image: url('./../../../assets/b7.jpg');
+  background-repeat: no-repeat;
+  background-size:100%;
+
+
+}

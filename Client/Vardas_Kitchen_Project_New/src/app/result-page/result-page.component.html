@@ -1,0 +1,61 @@
+<div class="general-wraper">
+    <!--- side bar --->
+    <aside class="wrapper">
+        <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+
+                <a href="#" style="font-size: 110%;">סנן תוצאות לפי</a>
+            </li>
+            <li>
+                <input type="checkbox" name="vehicle" value="Bike">
+                <a href="#">רמה קלה</a>
+            </li>
+            <li>
+                <input type="checkbox" name="vehicle" value="Bike">
+                <a href="#">רמה בינונית</a>
+            </li>
+            <li>
+                <input type="checkbox" name="vehicle" value="Bike">
+                <a href="#">רמה קשה</a>
+            </li>
+            <li>
+                <input type="checkbox" name="vehicle" value="Bike">
+                <a href="#">מעל חצי שעה</a>
+            </li>
+            <li>
+                <input type="checkbox" name="vehicle" value="Bike">
+                <a href="#">מתחת לחצי שעה</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main dir="rtl">
+        <div class="recepie-container" *ngFor="let result of searchResults" >
+              <div class="rel-container">
+                <div class="img-cont">
+                    <img src="../../assets/ptitim.jpg" class="pic"/>
+                </div>
+                  <h3 class="rec-name">{{result.recipe_name}}</h3>
+                  <div class="short-description">{{result.short_desc}}</div>
+                  <span class="properties"></span>
+                  <div class="caption">
+                        <span class="level" dir="rtl">{{result.difficulty+" "}}</span> 
+                        <span class="duration" dir="rtl">{{result.ready_in.hours+"שעות ו- "+result.ready_in.minutes+"דקות "}}</span>
+                        <span class="type" dir="rtl">{{result.which_meal}}</span>
+                  </div>
+                  <input type="button" class="enjoy-css" value="למתכון המלא +" [routerLink]="[ '/specificRecipe/' + result.recipe_name ]" routerLinkActive="active" />
+            </div>
+        </div>
+    </main>
+</div>
