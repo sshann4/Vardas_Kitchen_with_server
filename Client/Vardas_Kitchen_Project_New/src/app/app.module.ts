@@ -14,6 +14,7 @@ import { ResultPageComponent } from './result-page/result-page.component';
 import { SpecificRecipePageComponent } from './specific-recipe-page/specific-recipe-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RestService } from './rest.service';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 const appRoutes: Routes = [
   {
@@ -23,12 +24,20 @@ const appRoutes: Routes = [
   {
     path: 'specificRecipe/:recName',
     component: SpecificRecipePageComponent,
-    // data: { width: '20%' }
   },
   {
     path: 'search/:id',
     component: ResultPageComponent,
-    data: { width: '20%' }
+    data: {isGeneralSearch : false}
+  },
+  {
+    path: 'generalSearch/:id',
+    component: ResultPageComponent,
+    data: {isGeneralSearch : true}
+  },
+  {
+    path: 'about',
+    component: AboutPageComponent
   },
   {
     path: '',
@@ -54,6 +63,7 @@ const appRoutes: Routes = [
     ResultPageComponent,
     SpecificRecipePageComponent,
     PageNotFoundComponent,
+    AboutPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -61,6 +61,7 @@
 
 /*******************main recepies reaults********************/
 
+
 main {
   position: absolute;
   right: 20%;
@@ -98,16 +99,16 @@ main {
 .pic {
   position: relative;
   width: 82%;
-  height: 90%;
+  height: 91%;
   border-radius: 50%;
   margin-right: 12%;
-  margin-top: 4%;
+  margin-top: 3%;
 }
 
 .img-cont {
   position: absolute;
   background-color: #EEE0E5;
-  width: 20%;
+  width: 16%;
   height: 100%;
   border-radius: 50%;
   right: -20px;
@@ -115,15 +116,15 @@ main {
 
 .rec-name {
   position: absolute;
-  top: 9%;
-  right: 20%;
+  top: 7%;
+  right: 15%;
   margin: 0 auto;
 }
 
 .short-description {
   position: absolute;
   top: 30%;
-  right: 18%;
+  right: 13%;
   padding-top: 1%;
   padding-right: 3%;
   width: 70%;
@@ -132,7 +133,7 @@ main {
 
 .caption {
     position: absolute;
-    right: 15%;
+    right: 10%;
     bottom: 6%;
     width: 30%;
     text-align: center;

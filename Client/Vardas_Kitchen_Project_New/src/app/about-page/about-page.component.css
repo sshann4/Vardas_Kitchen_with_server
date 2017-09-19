@@ -1,0 +1,44 @@
+.general-wraper {
+  height: auto;
+  width: 100%;
+}
+/*******************main recepies reaults********************/
+
+main {
+  position: absolute;
+  right: 20%;
+  /*background-color: #EEE0E5;*/
+  width: 60%;
+  min-height: 620px;
+}
+
+h3 {
+  margin-top: 1%;
+  font-size: 22px;
+  line-height: 40px;
+  color: #a0956a;
+}
+
+.divider {
+  background-color: #34B8AE;
+  width: 70px;
+  height: 3px;
+  margin: 25px 0 4px
+}
+
+.background-cont {
+  background-color: white;
+  width: 90%;
+  margin-right: 5%;
+  margin-top: 8%;
+}
+
+img {
+  width: 100%;
+}
+
+p {
+  line-height: 1.5;
+  font-size: 120%;
+  margin-top: 2%;
+}

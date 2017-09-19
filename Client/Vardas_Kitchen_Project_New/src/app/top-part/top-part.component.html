@@ -34,7 +34,7 @@
            <div class="collapse navbar-collapse navbar-ex1-collapse ">
              <ul class="nav navbar-nav navbar-right  "  id="menu_items">
               <li class="active navbar-right"><a routerLink="home" routerLinkActive="active" href="#">דף הבית</a></li>
-              <li class="navbar-right"><a routerLink="" routerLinkActive="active" href="#">מי אנחנו</a></li>
+              <li class="navbar-right"><a routerLink="about" routerLinkActive="active" href="#">מי אנחנו</a></li>
               <li class="navbar-right"> <a href="#">אוכל ביתי</a></li>
               <li  class="navbar-right">
                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" dir="rtl">סנן מתכונים לפי  <b class="caret"></b></a>
@@ -91,13 +91,15 @@
              <div class="col-sm-3 col-md-3">
                <form class="navbar-form" role="search">
                  <div class="input-group">
-                   <input type="text" class="form-control" placeholder="חיפוש" name="q">
+                   <input type="text" #searchInput class="form-control" placeholder="חיפוש" name="q">
                    <div class="input-group-btn">
-                     <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                     <button (click)="searchFor(searchInput.value)" class="btn btn-default"  type="submit"><i class="glyphicon glyphicon-search"></i></button>
                    </div>
                  </div>
                </form>
              </div>
+             <!-- routerLink="['search/'+ searchInput.value]" [data]="{ isGeneralSearch : true }" -->
+              <!--  -->
            <button type="button" class="btn btn-default navbar-btn  btn-inverse  navbar-left  btn-xs "  >Register</button>
            <button type="button" class="btn btn-default navbar-btn  navbar-left btn-xs btn-primary"  >Sign in</button>
          </div><!-- /.navbar-collapse -->

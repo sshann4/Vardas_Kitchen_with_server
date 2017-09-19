@@ -44,13 +44,13 @@
         <div class="recepie-container" *ngFor="let result of searchResults" >
               <div class="rel-container">
                 <div class="img-cont">
-                    <img src="../../assets/ptitim.jpg" class="pic"/>
+                    <img [src]="'data:image/jpg;base64,'+result.img" class="pic"/>
                 </div>
                   <h3 class="rec-name">{{result.recipe_name}}</h3>
                   <div class="short-description">{{result.short_desc}}</div>
                   <span class="properties"></span>
                   <div class="caption">
-                        <span class="level" dir="rtl">{{result.difficulty+" "}}</span> 
+                        <span class="level" dir="rtl">{{result.difficulty+" "}}</span>
                         <span class="duration" dir="rtl">{{result.ready_in.hours+"שעות ו- "+result.ready_in.minutes+"דקות "}}</span>
                         <span class="type" dir="rtl">{{result.which_meal}}</span>
                   </div>

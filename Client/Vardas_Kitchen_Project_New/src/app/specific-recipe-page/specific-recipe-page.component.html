@@ -23,7 +23,7 @@
         <div class="recepie-container">
           <div class="rel-container">
             <div class="img-cont">
-                <img src="../../assets/ptitim.jpg" class="pic"/>
+                <img [src]="'data:image/jpg;base64,'+this.recipe[0].img" class="pic"/>
             </div>
             <div class="header-cont">
                 <h2 class="rec-name">{{this.recipe[0].recipe_name}}</h2>

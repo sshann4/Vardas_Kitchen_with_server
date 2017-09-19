@@ -19,7 +19,8 @@ const recipe_schema = new Schema({
   },
   difficulty: String,
   which_meal: String,
-  category: [String]// Array of subdocuments
+  category: [String],// Array of subdocuments
+  img: String
 });
 
 

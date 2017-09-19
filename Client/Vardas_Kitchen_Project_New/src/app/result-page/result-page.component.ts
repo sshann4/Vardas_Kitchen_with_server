@@ -15,6 +15,7 @@ export class ResultPageComponent implements OnInit {
 
   private searchResults = [];
 
+
   constructor(private route:ActivatedRoute , private rest:RestService) {
   //   this.router.events.subscribe(event => {
   //     if(event instanceof NavigationStart) {
@@ -22,14 +23,16 @@ export class ResultPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((data) => {
-    console.log(data);
-    })
+    // this.route.params.subscribe((data) => {
+    // console.log(data);
+    // })
 
-    this.rest.getSearchResults().subscribe((resSearchResults) =>{
-      this.searchResults = resSearchResults;
-      console.log("search Results: ",this.searchResults);
-    })
+    this.rest.getSearchResults()
+    // .subscribe((resSearchResults) =>{
+      // this.searchResults = resSearchResults;
+      console.log("open result-page component");
+    // })
 
   }
+
 }

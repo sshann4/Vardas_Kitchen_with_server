@@ -24,7 +24,8 @@ export class AppComponent implements OnInit{
         // console.log(event.url, this.i++);
         // console.log(event.url.includes("/search"), "for search");
         // console.log(event.url.includes("/specific-recepies"), "for specific-recepie");
-        if(event.url.includes("/search")|| event.url.includes("/specificRecipe") ){
+        if(event.url.includes("/search")|| event.url.includes("/specificRecipe")||
+        event.url.includes("/about") ) {
           this.isSmallHeader = true;
         }
         else {
