@@ -10,6 +10,8 @@ const app = express();//creationg express application
 
 app.use('/', express.static('./Client/Vardas_Kitchen_Project_New/dist'))//the dist folder will contain the production files,after performing the build, replacing GET req to each of the files
 app.use(bodyParser.json());//middleware that works before the server handels the POST,GET req turns the body to Object of jason file
+console.log("server is activated");
+
 
 //get a specific recipe
 app.get('/api/specificRecipe/:recName', (req,res)=>{
@@ -25,6 +27,7 @@ app.get('/api/specificRecipe/:recName', (req,res)=>{
        res.end();//sends back the res,the client won`t get res if we wont end it
      });
 });
+
 
 
 // get all recipes which has the /:id category
@@ -45,8 +48,9 @@ app.get('/api/search/:cat', (req,res)=>{
      });
 });
 
+
 // get all recipes which has the /:id category
-app.get('/api/generalSearch/:val', (req,res)=>{
+app.get('/api/generalSearch/search/:val', (req,res)=>{
   console.log('general search for value: ', req.params.val.toString());//Prints the log in the teminal (where the server is running)
   // res.write('text');// adds the 'text' to the body of the response
 

@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { NgClass,NgFor } from '@angular/common';
+
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -13,8 +15,11 @@ import { SwitchRecipesComponent } from './home-page/center-part/switch-recipes/s
 import { ResultPageComponent } from './result-page/result-page.component';
 import { SpecificRecipePageComponent } from './specific-recipe-page/specific-recipe-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { RestService } from './rest.service';
 import { AboutPageComponent } from './about-page/about-page.component';
+
+import { RestService } from './rest.service';
+import { SharedStatesService } from './shared-states.service';
+import { SidebarFilterPipe } from './sidebar-filter.pipe';
 
 const appRoutes: Routes = [
   {
@@ -27,14 +32,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'search/:id',
-    component: ResultPageComponent,
-    data: {isGeneralSearch : false}
+    component: ResultPageComponent
   },
-  {
-    path: 'generalSearch/:id',
-    component: ResultPageComponent,
-    data: {isGeneralSearch : true}
-  },
+  // {
+  //   path: 'generalSearch/:id',
+  //   component: ResultPageComponent,
+  //   data: {isGeneralSearch : true}
+  // },
   {
     path: 'about',
     component: AboutPageComponent
@@ -64,6 +68,7 @@ const appRoutes: Routes = [
     SpecificRecipePageComponent,
     PageNotFoundComponent,
     AboutPageComponent,
+    SidebarFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { enableTracing: false } // <-- debugging  purposes only
     )
   ],
-  providers: [],
+  providers: [SharedStatesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { NgClass,NgFor } from '@angular/common';
 import { Router,NavigationStart,ActivatedRoute } from '@angular/router';
 import { RestService } from './../rest.service';
 import { HttpModule } from '@angular/http';
-import { NgFor } from '@angular/common';
+import { SharedStatesService } from './../shared-states.service';
 
 @Component({
   selector: 'app-top-part',
@@ -12,12 +12,13 @@ import { NgFor } from '@angular/common';
   providers: [RestService]
 })
 
-export class TopPartComponent implements OnInit {
+export class TopPartComponent {
   //variable to hold boolean value to style top-part size
    isSmallHeader = false;
 
-  constructor(private router: Router, private route:ActivatedRoute) {
+  constructor(private router: Router, private route:ActivatedRoute, private searchType:SharedStatesService) {
 
+    console.log("top-part constractor");
     this.router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
         // console.log("bla bla bla ",event.url);
@@ -36,22 +37,16 @@ export class TopPartComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-
-      // console.log(this.router.isActive('/search/:id',false));
-
-  }
-
   // search() {
   //   console.log('value after button click' + searchValue);
   //   this.rest.getGeneralSearchResults();
   // }
 
   public searchFor(searchValue) {
-    console.log("hello");
+    this.searchType.isGeneralSearch = true;
     console.log("seraching for: ",searchValue);
-    console.log("route to: ","/generalSearch/" , searchValue);
-    // this.router.navigate(['/generalSearch/' + searchValue]);
+    // this.router.navigate(["search/" + searchValue]);
+    // this.router.navigate(['/generalSearch/אפייה']);
   }
     // this.router.navigate('/search/'+ searchValue.toString());
 

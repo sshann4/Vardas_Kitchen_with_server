@@ -4,27 +4,25 @@
         <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-
                 <a href="#" style="font-size: 110%;">סנן תוצאות לפי</a>
             </li>
             <li>
-                <input type="checkbox" name="vehicle" value="Bike">
                 <a href="#">רמה קלה</a>
+                <input type="checkbox" value="קל">
             </li>
             <li>
-                <input type="checkbox" name="vehicle" value="Bike">
                 <a href="#">רמה בינונית</a>
+                <input type="checkbox" value="בינוני">
             </li>
             <li>
-                <input type="checkbox" name="vehicle" value="Bike">
                 <a href="#">רמה קשה</a>
+                <input type="checkbox" value="קשה">
             </li>
             <li>
-                <input type="checkbox" name="vehicle" value="Bike">
                 <a href="#">מעל חצי שעה</a>
+                <input type="checkbox" value="Bike">
             </li>
             <li>
-                <input type="checkbox" name="vehicle" value="Bike">
                 <a href="#">מתחת לחצי שעה</a>
             </li>
             <li>
@@ -44,9 +42,9 @@
         <div class="recepie-container" *ngFor="let result of searchResults" >
               <div class="rel-container">
                 <div class="img-cont">
+                  <h3 class="rec-name">{{result.recipe_name}}</h3>
                     <img [src]="'data:image/jpg;base64,'+result.img" class="pic"/>
                 </div>
-                  <h3 class="rec-name">{{result.recipe_name}}</h3>
                   <div class="short-description">{{result.short_desc}}</div>
                   <span class="properties"></span>
                   <div class="caption">
