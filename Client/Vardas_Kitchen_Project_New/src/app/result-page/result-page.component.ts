@@ -20,16 +20,9 @@ export class ResultPageComponent implements OnInit {
 
 
   constructor(private route:ActivatedRoute , private rest:RestService, private searchType:SharedStatesService) {
-  //   this.router.events.subscribe(event => {
-  //     if(event instanceof NavigationStart) {
-  //       console.log(event.url);
   }
 
   ngOnInit() {
-    // this.route.params.subscribe((data) => {
-    // console.log(data);
-    // })
-
     this.rest.getSearchResults(this.searchType.isGeneralSearch)
     .subscribe((resSearchResults) =>{
       this.searchResults = resSearchResults;

@@ -41,26 +41,26 @@
                     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu" dir="rtl">
                           <li class="dropdown-submenu"><a tabindex="-1" href="#">לפי סוג</a>
                               <ul class="dropdown-menu">
-                                 <li><a routerLink="search/צמחוני" routerLinkActive="active" href="#">צמחוני</a></li>
-                                 <li><a routerLink="search/בשרי" routerLinkActive="active" href="#">בשרי</a></li>
-                                 <li><a routerLink="search/ללא גלוטן" routerLinkActive="active" href="#">ללא גלוטן</a></li>
-                                 <li><a routerLink="search/מנות צד" routerLinkActive="active" href="#">מנות צד</a></li>
-                                 <li><a routerLink="search/סלטים" routerLinkActive="active" href="#">סלטים</a></li>
-                                 <li><a routerLink="search/קינוחים" routerLinkActive="active" href="#">קינוחים</a></li>
+                                <li><a routerLink="search/צמחוני" routerLinkActive="active">צמחוני</a></li>
+                                 <li><a routerLink="search/בשרי" routerLinkActive="active">בשרי</a></li>
+                                 <li><a routerLink="search/ללא גלוטן" routerLinkActive="active">ללא גלוטן</a></li>
+                                 <li><a routerLink="search/מנות צד" routerLinkActive="active">מנות צד</a></li>
+                                 <li><a routerLink="search/סלטים" routerLinkActive="active">סלטים</a></li>
+                                 <li><a routerLink="search/קינוחים" routerLinkActive="active">קינוחים</a></li>
                                </ul>
                            </li>
                           <li class="dropdown-submenu"><a tabindex="-1" href="#">לפי רמת קושי</a>
                               <ul class="dropdown-menu">
-                                 <li><a routerLink="search/קשה" routerLinkActive="active" href="#">קשה</a></li>
-                                 <li><a routerLink="search/בינוני" routerLinkActive="active" href="#">בינוני</a></li>
-                                 <li><a routerLink="search/קל" routerLinkActive="active" href="#">קל</a></li>
+                                 <li><a routerLink="search/קשה" routerLinkActive="active">קשה</a></li>
+                                 <li><a routerLink="search/בינוני" routerLinkActive="active">בינוני</a></li>
+                                 <li><a routerLink="search/קל" routerLinkActive="active">קל</a></li>
                                </ul>
                            </li>
                            <li class="dropdown-submenu"><a tabindex="-1" href="#">לפי ארוחה</a>
                              <ul class="dropdown-menu">
-                               <li><a  routerLink="search/ארוחת בוקר" routerLinkActive="active" href="#">ארוחת בוקר</a></li>
-                                <li><a routerLink="search/ארוחת צהריים" routerLinkActive="active" href="#">ארוחת צהריים</a></li>
-                                <li><a routerLink="search/ארוחת ערב" routerLinkActive="active" href="#">ארוחת ערב</a></li>
+                               <li><a  routerLink="search/ארוחת בוקר" routerLinkActive="active">ארוחת בוקר</a></li>
+                                <li><a routerLink="search/ארוחת צהריים" routerLinkActive="active">ארוחת צהריים</a></li>
+                                <li><a routerLink="search/ארוחת ערב" routerLinkActive="active">ארוחת ערב</a></li>
                               </ul>
                           </li>
                           <li class="dropdown-submenu"><a tabindex="-1" href="#">לפי חג</a>
@@ -93,15 +93,13 @@
                  <div class="input-group">
                    <input type="text" #searchInput class="form-control" placeholder="חיפוש" name="q">
                    <div class="input-group-btn">
-                    <a [routerLink]="['search/', searchInput.value]"><button (click)="searchFor(searchInput.value)" class="btn btn-default"  type="submit"><i class="glyphicon glyphicon-search"></i></button></a> 
+                    <a [routerLink]="['search/', searchInput.value]"><button (click)="searchFor(searchInput.value)" class="btn btn-default"  type="submit"><i class="glyphicon glyphicon-search"></i></button></a>
                    </div>
                  </div>
                </form>
              </div>
-             <!-- routerLink="['search/'+ searchInput.value]" [data]="{ isGeneralSearch : true }" -->
-              <!--  -->
            <button type="button" class="btn btn-default navbar-btn  btn-inverse  navbar-left  btn-xs "  >Register</button>
            <button type="button" class="btn btn-default navbar-btn  navbar-left btn-xs btn-primary"  >Sign in</button>
-         </div><!-- /.navbar-collapse -->
+         </div>
 
         </nav> <!-- End of Nav Bar    ------------------------>

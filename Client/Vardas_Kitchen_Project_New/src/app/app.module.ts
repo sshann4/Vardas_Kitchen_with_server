@@ -34,11 +34,6 @@ const appRoutes: Routes = [
     path: 'search/:id',
     component: ResultPageComponent
   },
-  // {
-  //   path: 'generalSearch/:id',
-  //   component: ResultPageComponent,
-  //   data: {isGeneralSearch : true}
-  // },
   {
     path: 'about',
     component: AboutPageComponent
@@ -46,8 +41,6 @@ const appRoutes: Routes = [
   {
     path: '',
     component: HomePageComponent
-    // redirectTo: '/home',
-    // pathMatch: 'full'
   },
   {
     path: '**',

@@ -1,22 +1,36 @@
+//general imports
 const mongoose = require('mongoose'); // import mongoose
 const express = require('express'); // import express
 const bodyParser = require('body-parser'); // import body parser- turn the response into jason file
-const Recipe = require('./models/recipe');
-var fs = require('fs');
+const fs = require('fs');//helps dealing with files (like JSON.stringify etc)
 
-//'mongodb://127.0.0.1/VardasKitchendb'
-mongoose.connect('mongodb://varda_db:varda_db@ds131384.mlab.com:31384/vardas_kitchen_project_db',  { useMongoClient: true });//the protocol is mongodb and the port will be the default port of mongodb, VardasKitchendb- the name of the DB
-const app = express();//creationg express application
+const app = express();//creating express application
+const router = express.Router();
 
-app.use('/', express.static('./Client/Vardas_Kitchen_Project_New/dist'))//the dist folder will contain the production files,after performing the build, replacing GET req to each of the files
+const Recipe = require('./models/recipe');//recipe schema
+const authentication = require('./models/authentication')(router);
+
+//the protocol is mongodb and the port will be the default port of mongodb, VardasKitchendb- the name of the DB
+mongoose.connect('mongodb://varda_db:varda_db@ds131384.mlab.com:31384/vardas_kitchen_project_db',  { useMongoClient: true });
+
+//Returns middleware that only parses urlencoded bodies and only looks at requests where the Content-Type header matches the type option. This parser accepts only UTF-8 encoding of the body and supports automatic inflation of gzip and deflate encodings.
+app.use(bodyParser.urlencoded({ extended: false}));//body-parser extract the entire body portion of an incoming request stream and exposes it on req.body.
+//when extended is false the type of value in key:value is a String or an Array
+
+//Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option. This parser accepts any Unicode encoding of the body and supports automatic inflation of gzip and deflate encodings.
 app.use(bodyParser.json());//middleware that works before the server handels the POST,GET req turns the body to Object of jason file
+app.use('/', express.static('./Client/Vardas_Kitchen_Project_New/dist'))//the dist folder will contain the production files,after performing the build, replacing GET req to each of the files
+app.use('/authentication',authentication);// my own midleware to handel registration req
+
+
 console.log("server is activated");
 
 
-//get a specific recipe
+//-----------------------------req handler--------------------------------//
+
+//get a specific recipe by its name
 app.get('/api/specificRecipe/:recName', (req,res)=>{
-  // console.log('the right recipe is:', req.params.recName.toString());
-  Recipe.find({recipe_name:  req.params.recName.toString()}, (err,recipes) => {
+  Recipe.find({recipe_name: req.params.recName.toString()}, (err,recipes) => {
        if(err){
          console.log(err);
          res.writeHead(500);
@@ -30,12 +44,9 @@ app.get('/api/specificRecipe/:recName', (req,res)=>{
 
 
 
-// get all recipes which has the /:id category
+// get all recipes which has the /:cat category
 app.get('/api/search/:cat', (req,res)=>{
   console.log('all search results for', req.params.cat.toString());//Prints the log in the teminal (where the server is running)
-  // res.write('text');// adds the 'text' to the body of the response
-
-  //working: {rate: req.params.cat}
   Recipe.find({category: req.params.cat.toString()}, (err,recipes) => {
        if(err){
          console.log(err);
@@ -49,12 +60,10 @@ app.get('/api/search/:cat', (req,res)=>{
 });
 
 
-// get all recipes which has the /:id category
+
+// get all recipes which has the a propriate value in its tag list
 app.get('/api/generalSearch/search/:val', (req,res)=>{
   console.log('general search for value: ', req.params.val.toString());//Prints the log in the teminal (where the server is running)
-  // res.write('text');// adds the 'text' to the body of the response
-
-  //working: {rate: req.params.cat}
   Recipe.find({tags: req.params.val.toString()}, (err,recipes) => {
        if(err){
          console.log(err);
@@ -76,7 +85,7 @@ app.post('/api/post', (req,res)=> {
     if (err) {
       res.writeHead(500);
     } else {
-      res.writeHead(204);//204- succecfull response with no nody
+      res.writeHead(204);//204- succecfull response
     }
     res.end();
   });
@@ -88,205 +97,10 @@ app.post('/api/post', (req,res)=> {
 app.listen(3000);
 
 
-// // ----------------------------create a new doc--------------------------------------------------
-function base64_encode(file) {
-    // read binary data
-    var bitmap = fs.readFileSync(file);
-    // convert binary data to base64 encoded string
-    return new Buffer(bitmap).toString('base64');
-}
-
-// console.log(base64_encode('./Client/Vardas_Kitchen_Project_New/src/assets/desert3.jpg'));
-
-// const recipe = new Recipe({
-//   recipe_name: 'סלט חציל וטחינה' ,
-//   short_desc: 'טעם אהוב של חציל שרוף בשילוב עם שום וטחינה איכותית' ,
-//   rate:  4,
-//   ingredients: [
-//     {amount: 2,   ingredient_name: 'חצילים בינוניים'},
-//     {amount: 3,   ingredient_name: 'פלחי שום'},
-//     {amount: 3,   ingredient_name: 'כוסות מים'},
-//     {amount: 0.5, ingredient_name: 'טחינה גולמית'},
-//     {amount: 1,   ingredient_name: 'כף מלח'},
-//     {amount: 3,   ingredient_name: 'כפות חומץ'}],
-//
-//   steps: ['קוצצים את הבצלים לחתיכות בינוניות', 'מטגנים אותם עד שמקבלים בצע חום-צהבהב', 'מוסיפים את האורז ומטגנים כ-3 דקות נוספות','בינתיים מגרדים את העגבניות בבפומפייה ושומרים על הנוזלים','כשהאורז נהיה לבן והבצל מטוגן היטב מוסיפים את העגבניות המגורדות לסיר על אש בינונית ומערבבים היטב','מוסיפים את התבלינים (מלח,פלפל,פפריקה וסוכר) ומבשלים כ-3 דקות עד לספיגת הנוזלים של העגבניות','כשהנוזלים נספגו מוסיפים את המים ולאחר ערבוב קל סוגרים את הסיר ומבשלים כרבע שעה עד שהמים כמעט לגמרי נספגים', 'סוגרים את האש ומניחים בין המכסה לסיר מגבת עבה ומחכים עוד כ-5 דקות עד שהאדים נספגים.'],
-//   is_most_recommended: false,
-//   ready_in: {
-//     hours: 0,
-//     minutes: 30
-//   },
-//   difficulty: 'קל',
-//   category: ['גז','קל'] ,// Array of subdocuments
-//   img: base64_encode('./Client/Vardas_Kitchen_Project_New/src/assets/salad8.jpg')
-//
-// });
-//
-//
-// const recipe = new Recipe({
-//   recipe_name: 'אורז עם עגבניות' ,
-//   short_desc: 'אורז אדום עם בצל ועגבניות טריות, אדמדם ומבריק. מתכון קליל וטעמים מדהימים שמשדרגים את האורז הלבן הפשוט',
-//   rate:  5,
-//   ingredients: [
-//     {amount: 2,   ingredient_name: 'חצילים בינוניים'},
-//     {amount: 3,   ingredient_name: 'פלחי שום'},
-//     {amount: 3,   ingredient_name: 'כוסות מים'},
-//     {amount: 0.5, ingredient_name: 'טחינה גולמית'},
-//     {amount: 1,   ingredient_name: 'כף מלח'},
-//     {amount: 3,   ingredient_name: 'כפות חומץ'}],
-//
-//   steps: [
-//     'קוצצים את הבצלים לחתיכות בינוניות',
-//     'מטגנים אותם עד שמקבלים בצע חום-צהבהב',
-//     מוסיפים את האורז ומטגנים כ-3 דקות נוספות,
-//     "בינתיים מגרדים את העגבניות בבפומפייה ושומרים על הנוזלים",
-//     "כשהאורז נהיה לבן והבצל מטוגן היטב מוסיפים את העגבניות המגורדות לסיר על אש בינונית ומערבבים היטב",
-//     "מוסיפים את התבלינים (מלח,פלפל,פפריקה וסוכר) ומבשלים כ-3 דקות עד לספיגת הנוזלים של העגבניות",
-//     "כשהנוזלים נספגו מוסיפים את המים ולאחר ערבוב קל סוגרים את הסיר ומבשלים כרבע שעה עד שהמים כמעט לגמרי נספגים",
-//     "סוגרים את האש ומניחים בין המכסה לסיר מגבת עבה ומחכים עוד כ-5 דקות עד שהאדים נספגים."
-//
-//
-//   ],
-//   is_most_recommended: false,
-//   ready_in: {
-//     hours: 0,
-//     minutes: 30
-//   },
-//   difficulty: 'קל',
-//   category: ['גז','קל'] ,// Array of subdocuments
-//   img: base64_encode('./Client/Vardas_Kitchen_Project_New/src/assets/salad8.jpg')
-//
-// });
-//
-//
-//    "recipe_name": ,
-//    "short_desc": ,
-//    "rate": 4,
-//    "is_most_recommended": false,
-//    "difficulty": "קל",
-//    "category": [
-//        "גז",
-//        "קל"
-//    ],
-//    "ready_in": {
-//        "hours": 0,
-//        "minutes": 30
-//    },
-//    "steps": [
-//
-//    ],
-//    "img": {
-//        "data": "",
-//        "contentType": ""
-//    },
-//    "ingredients": [
-//        {
-//            "amount": 3,
-//            "ingredient_name": "בצלים בינוניים",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c1a"
-//            }
-//        },
-//        {
-//            "amount": 3,
-//            "ingredient_name": "עגבניות רכות",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c19"
-//            }
-//        },
-//        {
-//            "amount": 1,
-//            "ingredient_name": "כוסות אורז",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c18"
-//            }
-//        },
-//        {
-//            "amount": 1.5,
-//            "ingredient_name": "כוסות מים",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c17"
-//            }
-//        },
-//        {
-//            "amount": 1,
-//            "ingredient_name": "כף מלח,כף פלפל",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c16"
-//            }
-//        },
-//        {
-//            "amount": 3,
-//            "ingredient_name": "כפות פפריקה",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c15"
-//            }
-//        },
-//        {
-//            "amount": 1,
-//            "ingredient_name": "כף רסק עגבניות",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c14"
-//            }
-//        },
-//        {
-//            "amount": 1,
-//            "ingredient_name": "כף סוכר",
-//            "_id": {
-//                "$oid": "59b37c4d515839f8f1586c13"
-//            }
-//        }
-//    ],
-//
-// recipe.save((err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     Recipe.find((err,recipes) => {
-//       if(err){
-//         console.log(err);
-//       }
-//       else{
-//         console.log(recipes);
-//       }
-//     })
-//   }
-// });
-
-//---------------------------------------adding an image ----------------------------------//
-
-//
-// var imgPath = './client/Vardas_Kitchen_Project_New/src/assets/side6.jpg';
-// Recipe.find({recipe_name: 'אורז עם עגבניות'}, (err,recipe) => {
-//      if(err){
-//        console.log(err);
-//        res.writeHead(500);
-//      } else{
-//            console.log('recipe name: ', recipe.recipe_name);
-//            recipe.img.contentType = 'image/png';
-//            recipe.img.data = fs.readFileSync(imgPath);
-//            recipe.save(function (err, a) {
-//              if (err) throw err;
-//              console.error('saved img to mongo');
-//            })
-//       }
-// });
-
-// app.get('/api/img/:recName', (req,res)=>{
-//   // console.log('the right recipe is:', req.params.recName.toString());
-//   Recipe.find({recipe_name:  req.params.recName.toString()}, (err,recipes) => {
-//        if(err){
-//          console.log(err);
-//          res.writeHead(500);
-//        } else{
-//          console.log('recipe name: ', recipe.recipe_name);
-//          recipe.img.contentType = 'image/png';
-//          recipe.img.data = fs.readFileSync(imgPath);
-//          recipe.save(function (err, a) {
-//            if (err) throw err;
-//            console.error('saved img to mongo');
-//          })
-//         }
-//        res.end();//sends back the res,the client won`t get res if we wont end it
-//      });
-// });
+//----------------------------create a new doc for upload an image to DB--------------------------------------------//
+// function base64_encode(file) {
+//     // read binary data
+//     var bitmap = fs.readFileSync(file);
+//     // convert binary data to base64 encoded string
+//     return new Buffer(bitmap).toString('base64');
+// }
